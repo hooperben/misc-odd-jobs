@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # the url where we get the information from
-url = 'https://hooper.link'
+url = 'https://hooper.link/contact'
 
 # Fetching the content of the URL
 response = requests.get(url)
@@ -10,8 +10,11 @@ response = requests.get(url)
 # Parsing the content with BeautifulSoup
 soup = BeautifulSoup(response.text, 'html.parser')
 
-# Finding the div with id="1234" and storing it in variable 'tester'
-tester = soup.find('div', id='__next')
+# Finding all 'a' tags and storing them in a variable 'a_tags'
+a_tags = soup.find_all('a')
 
-# Printing or using the 'tester' variable as needed
-print(tester)
+# loop through all 'a' tags or using them as needed
+for tag in a_tags:
+  href = tag.get('href')  # Getting the href attribute of the tag
+  if href:  # Making sure href is not None
+    print(href)
